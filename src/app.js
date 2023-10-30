@@ -6,6 +6,8 @@ import {__dirname} from "./utils.js"
 import session from "express-session";
 import MongoStore from "connect-mongo";
 import cookieParser from 'cookie-parser';
+import passport from 'passport';
+import initializePassword from './config/passport.config.js';
 
 import routerP from './routers/products.router.js';
 import routerC from './routers/carts.router.js';
@@ -52,6 +54,9 @@ app.use(
         saveUninitialized: false,
     })
 );
+initializePassword();
+app.use (passport.initialize());
+app.use (passport.session());
 
 //rutas
 app.use('/api/products', routerP)
