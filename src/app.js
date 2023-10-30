@@ -131,7 +131,3 @@ app.get("/profile", async (req, res) => {
     });
 })
 
-//app.get('/api/sessions/githubcallback', async (req, res) => {
-    
-       // return res.redirect("/api/products")
-//})

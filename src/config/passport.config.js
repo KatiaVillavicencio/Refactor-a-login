@@ -66,23 +66,24 @@ const initializePassword = () => {
         }))
         passport.use('github', new GitHubStrategy({
           clientID: "Iv1.0d046f3f2b8fbac7",
-          clientSecret: "xxxxxxxxxxxxxxxxxxxxxxx",
+          clientSecret: "3ce027f62ccd8ff05a99b79861c44bf9c8d6dd3d",
           callbackURL: "http://localhost:8080/api/sessions/githubcallback"
         }, async (accessToken, refreshToken, profile, done)=>{
           try
           {
-            let user = await userMan.findOne({email:profile._json.email})
+            console.log (profile)
+            let user = await userMan.findEmail({email:profile._json.email})
             if(!user)
             {
-              let newUser = {
+               let newUser = {
                 first_name: profile._json.login,
-                last_name:"github user",
+                last_name:" ",
                 age: 35,
                 email:profile._json.email,
                 password:"",
-                rol:"[]"
+                rol:""
               }
-              let result = await userMan.addUser(newUser)
+              let result = await userMan.create(newUser)
               done(null, result)
             }
             else

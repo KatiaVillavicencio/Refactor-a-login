@@ -69,7 +69,7 @@ userRouter.get ("/githubcallback", passport.authenticate ("github", {failureRedi
     req.session.user = req.user
     req.session.emailUsuario = req.session.user.email
     req.session.rolUsuario = req.session.user.rol
-    res.redirect("/products" )
+    res.redirect("/api/products" )
 })
 
 
