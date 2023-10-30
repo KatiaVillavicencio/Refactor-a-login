@@ -3,8 +3,8 @@ import { fileURLToPath } from "url"
 export const __dirname=dirname(fileURLToPath(import.meta.url))
 
 
+//hasheo
 
- 
 import bcrypt from "bcrypt"
 
 export const createHash = password => bcrypt.hashSync (password, bcrypt.genSaltSync (10))

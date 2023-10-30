@@ -1,4 +1,4 @@
-import UserManager from "../dao/managers/userManagerMongo.js" 
+import UserManager from "../dao/managers/UserManagerMongo.js" 
 import { Router } from "express"
 import passport from "passport"
 
@@ -6,7 +6,7 @@ const userRouter = Router()
 const user = new UserManager()
 
 
-userRouter.post("/register", passport.authenticate("register",{failureRedirect:"/failreg"}), async(req, res) => {
+userRouter.post("/register", passport.authenticate("register",{failureRedirect:"/failregister"}), async(req, res) => {
     try 
     {
         const { first_name, last_name, email, age, password, rol }= req.body
@@ -19,7 +19,7 @@ userRouter.post("/register", passport.authenticate("register",{failureRedirect:"
     }
 })
 
-userRouter.post ("failreg", async(req,res)=>{
+userRouter.post ("failregister", async(req,res)=>{
     console.log ("Registro fallido")
     res.send({error: "failed"})
 })
@@ -48,7 +48,7 @@ userRouter.post("/login", passport.authenticate("login", {failureRedirect: "/fai
         res.status(500).send("Error al acceder al perfil: " + error.message);
     }
 })
-userRouter.get ("failloging",async(req,res)=>{
+userRouter.get ("faillogin",async(req,res)=>{
     res.send ({error: "Failed login"})
 })
 
@@ -65,11 +65,11 @@ userRouter.get("/logout", async (req, res) => {
 //logica Github//
 
 userRouter.get ("/github", passport.authenticate("github", {scope:["user:email"]}),async (req, res) =>{} )
-userRouter.get ("githubcallback", passport.authenticate ("github", {failureRedirect: "/login"}), async (req, res) => {
+userRouter.get ("/githubcallback", passport.authenticate ("github", {failureRedirect: "/login"}), async (req, res) => {
     req.session.user = req.user
     req.session.emailUsuario = req.session.user.email
     req.session.rolUsuario = req.session.user.rol
-    res.redirect("/api/products" )
+    res.redirect("/products" )
 })
 
 

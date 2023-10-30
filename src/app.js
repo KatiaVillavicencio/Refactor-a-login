@@ -1,22 +1,25 @@
 import express from 'express';
 import handlebars from 'express-handlebars';
 import { Server } from 'socket.io';
-import connectToDB from "./config/configServer.js"
-import {__dirname} from "./utils.js"
 import session from "express-session";
 import MongoStore from "connect-mongo";
 import cookieParser from 'cookie-parser';
 import passport from 'passport';
+
+import connectToDB from "./config/configServer.js"
+import {__dirname} from "./utils.js"
 import initializePassword from './config/passport.config.js';
 
+//routes
 import routerP from './routers/products.router.js';
 import routerC from './routers/carts.router.js';
 import routerV from './routers/views.router.js';
+import userRouter from './routers/user.router.js';
 
 //socket.io
 import socketProducts from "./listeners/socketProducts.js"
 import socketChat from './listeners/socketChat.js';
-import userRouter from './routers/user.router.js';
+
 
 const app = express();
 const PORT = process.env.PORT || 8080
@@ -54,6 +57,8 @@ app.use(
         saveUninitialized: false,
     })
 );
+
+//Middleware passport
 initializePassword();
 app.use (passport.initialize());
 app.use (passport.session());
@@ -73,6 +78,7 @@ socketChat(socketServer)
 //Products view y login session//
 
 //Ingreso Products  http:localhost:8080/products
+
 app.get("/products", async (req, res) => {
     if (!req.session.emailUsuario) 
     {
@@ -124,3 +130,8 @@ app.get("/profile", async (req, res) => {
 
     });
 })
+
+//app.get('/api/sessions/githubcallback', async (req, res) => {
+    
+       // return res.redirect("/api/products")
+//})

@@ -105,7 +105,8 @@ extends usersModel
           return 'Error al obtener el usuario';
         }
       }
-      
+// Validar email
+
       async findEmail(param) {
         try{
         const user= await UserManager.findOne(param)
