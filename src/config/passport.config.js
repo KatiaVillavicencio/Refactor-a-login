@@ -7,6 +7,7 @@ import GitHubStrategy from "passport-github2"
 
 
 const LocalStrategy = local.Strategy
+
 const userMan = new UserManager()
 const initializePassword = () => {
     passport.use('register', new LocalStrategy(

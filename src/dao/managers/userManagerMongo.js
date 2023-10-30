@@ -106,4 +106,14 @@ extends usersModel
         }
       }
       
-}
+      async findEmail(param) {
+        try{
+        const user= await UserManager.findOne(param)
+        return user
+      } catch(error) {
+        console.error("error al validar usuario",error);
+        return "Error al obtener el usuario";
+      }
+    }
+
+    }
